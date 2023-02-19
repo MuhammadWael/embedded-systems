@@ -1,4 +1,4 @@
-
+//Code for identifing odd or even without using modoulus operator (%) 
 // declaring the needed library for scanf and printf
 #include<stdio.h>
 
