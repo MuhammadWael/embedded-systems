@@ -1,4 +1,4 @@
-
+//Program to toggle the nth bit and return the number in decimal 
 // declaring the needed library for scanf and printf
 #include<stdio.h>
 #define True 1
