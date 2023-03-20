@@ -72,8 +72,21 @@ void reverse_string(char* string){
             ++itr_char;//in case the character nither NULL nor space so we need to add it in the string inside the array and increment the iterator
         }
     }
-    for(int j = word_count-1; j >= 0; j--) //to print the array in reverse we need to start from the last word (max index) until the first one (0's index)
+    char reversed_string[word_count][biggest_word];
+    for(int j = 0 ; j < word_count ; j++) //loop to to assign values to the new reversed array
     {
-        printf("%s ",*(string2+j)); //printing the strings from the array of strings 
+        int k = 0; //the iterator fo characters to assign each charecter individually 
+        while( string2[word_count - j - 1][k] != '\0') // loop for assigning words from end to begining
+        {
+            reversed_string[j][k] = string2[word_count - j - 1][k]; //we used the index from the end of second array to be assinged at first array in the other
+            k++;
+        }
+        *(*(reversed_string+j)+k) = '\0';//putting null at the end of each string
+
+    }
+    //printing the elements of the reversed string
+    for (int j = 0; j < word_count; j++)
+    {
+        printf("%s ",*(reversed_string + j));
     }
 }
