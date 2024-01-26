@@ -1,0 +1,11 @@
+
+#define zero 0x3f
+#define one 0x06
+#define two 0x5b
+#define three 0x4f
+#define four 0x66
+#define five 0x6d
+#define six 0x7d
+#define seven 0x07
+#define eight 0x7f
+#define nine 0x6d

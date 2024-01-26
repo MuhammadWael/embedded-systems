@@ -1,0 +1,141 @@
+
+switch_for_led.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000b8  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000010c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000010c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000013c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  00000178  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000057e  00000000  00000000  00000198  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000508  00000000  00000000  00000716  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000227  00000000  00000000  00000c1e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  00000e48  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002cd  00000000  00000000  00000e6c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000034  00000000  00000000  00001139  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  0000116d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 5a 00 	jmp	0xb4	; 0xb4 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+
+
+int main(void)
+{
+	int led = 0;
+	SET_BIT(DDRC,2);
+  6c:	84 b3       	in	r24, 0x14	; 20
+  6e:	84 60       	ori	r24, 0x04	; 4
+  70:	84 bb       	out	0x14, r24	; 20
+	CLR_BIT(DDRB,0);
+  72:	87 b3       	in	r24, 0x17	; 23
+  74:	8e 7f       	andi	r24, 0xFE	; 254
+  76:	87 bb       	out	0x17, r24	; 23
+#include "math.h"
+
+
+int main(void)
+{
+	int led = 0;
+  78:	80 e0       	ldi	r24, 0x00	; 0
+  7a:	90 e0       	ldi	r25, 0x00	; 0
+	SET_BIT(DDRC,2);
+	CLR_BIT(DDRB,0);
+    while (1) 
+    {
+		if((GET_BIT(PINB,0)==1) && (led == 0))
+  7c:	b0 9b       	sbis	0x16, 0	; 22
+  7e:	0b c0       	rjmp	.+22     	; 0x96 <main+0x2a>
+  80:	00 97       	sbiw	r24, 0x00	; 0
+  82:	49 f4       	brne	.+18     	; 0x96 <main+0x2a>
+		{
+			SET_BIT(PORTC,2);
+  84:	85 b3       	in	r24, 0x15	; 21
+  86:	84 60       	ori	r24, 0x04	; 4
+  88:	85 bb       	out	0x15, r24	; 21
+			while(GET_BIT(PINB,0)==1);
+  8a:	b0 99       	sbic	0x16, 0	; 22
+  8c:	fe cf       	rjmp	.-4      	; 0x8a <main+0x1e>
+			while(GET_BIT(PINB,0)==1);
+  8e:	b0 99       	sbic	0x16, 0	; 22
+  90:	fe cf       	rjmp	.-4      	; 0x8e <main+0x22>
+			led = 1;
+  92:	81 e0       	ldi	r24, 0x01	; 1
+  94:	90 e0       	ldi	r25, 0x00	; 0
+		}
+		if((GET_BIT(PINB,0)==1) && (led == 1))
+  96:	b0 9b       	sbis	0x16, 0	; 22
+  98:	f1 cf       	rjmp	.-30     	; 0x7c <main+0x10>
+  9a:	81 30       	cpi	r24, 0x01	; 1
+  9c:	91 05       	cpc	r25, r1
+  9e:	71 f7       	brne	.-36     	; 0x7c <main+0x10>
+		{
+			CLR_BIT(PORTC,2);
+  a0:	85 b3       	in	r24, 0x15	; 21
+  a2:	8b 7f       	andi	r24, 0xFB	; 251
+  a4:	85 bb       	out	0x15, r24	; 21
+			while(GET_BIT(PINB,0)==1);
+  a6:	b0 99       	sbic	0x16, 0	; 22
+  a8:	fe cf       	rjmp	.-4      	; 0xa6 <main+0x3a>
+			while(GET_BIT(PINB,0)==1);
+  aa:	b0 99       	sbic	0x16, 0	; 22
+  ac:	fe cf       	rjmp	.-4      	; 0xaa <main+0x3e>
+			led = 0;
+  ae:	80 e0       	ldi	r24, 0x00	; 0
+  b0:	90 e0       	ldi	r25, 0x00	; 0
+  b2:	e4 cf       	rjmp	.-56     	; 0x7c <main+0x10>
+
+000000b4 <_exit>:
+  b4:	f8 94       	cli
+
+000000b6 <__stop_program>:
+  b6:	ff cf       	rjmp	.-2      	; 0xb6 <__stop_program>

@@ -1,0 +1,268 @@
+
+UART_TX.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000018e  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001e2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000001e2  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000214  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000098  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000008b6  00000000  00000000  000002e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000675  00000000  00000000  00000b9e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000475  00000000  00000000  00001213  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000dc  00000000  00000000  00001688  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003c8  00000000  00000000  00001764  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000039c  00000000  00000000  00001b2c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000068  00000000  00000000  00001ec8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 a7 00 	call	0x14e	; 0x14e <main>
+  64:	0c 94 c5 00 	jmp	0x18a	; 0x18a <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <DIO_void_Set_pin_dir>:
+#include "DIO_Interface.h"
+
+void DIO_void_Set_pin_dir(u8 copy_u8_port, u8 copy_u8_pin,u8 copy_u8_dir)
+{
+	 //set the pin's direction by taking the port and pin and direction in or out
+	if (copy_u8_pin <= 7 &&copy_u8_pin >=0)
+  6c:	68 30       	cpi	r22, 0x08	; 8
+  6e:	08 f0       	brcs	.+2      	; 0x72 <DIO_void_Set_pin_dir+0x6>
+  70:	6d c0       	rjmp	.+218    	; 0x14c <DIO_void_Set_pin_dir+0xe0>
+	{
+		if(copy_u8_dir == OUTPUT)
+  72:	41 30       	cpi	r20, 0x01	; 1
+  74:	a1 f5       	brne	.+104    	; 0xde <DIO_void_Set_pin_dir+0x72>
+		{
+			switch(copy_u8_port)
+  76:	81 30       	cpi	r24, 0x01	; 1
+  78:	89 f0       	breq	.+34     	; 0x9c <DIO_void_Set_pin_dir+0x30>
+  7a:	28 f0       	brcs	.+10     	; 0x86 <DIO_void_Set_pin_dir+0x1a>
+  7c:	82 30       	cpi	r24, 0x02	; 2
+  7e:	c9 f0       	breq	.+50     	; 0xb2 <DIO_void_Set_pin_dir+0x46>
+  80:	83 30       	cpi	r24, 0x03	; 3
+  82:	11 f1       	breq	.+68     	; 0xc8 <DIO_void_Set_pin_dir+0x5c>
+  84:	08 95       	ret
+			{
+				case PORTA:SET_BIT(DDRA_REG,copy_u8_pin); break;
+  86:	2a b3       	in	r18, 0x1a	; 26
+  88:	81 e0       	ldi	r24, 0x01	; 1
+  8a:	90 e0       	ldi	r25, 0x00	; 0
+  8c:	02 c0       	rjmp	.+4      	; 0x92 <DIO_void_Set_pin_dir+0x26>
+  8e:	88 0f       	add	r24, r24
+  90:	99 1f       	adc	r25, r25
+  92:	6a 95       	dec	r22
+  94:	e2 f7       	brpl	.-8      	; 0x8e <DIO_void_Set_pin_dir+0x22>
+  96:	82 2b       	or	r24, r18
+  98:	8a bb       	out	0x1a, r24	; 26
+  9a:	08 95       	ret
+				case PORTB:SET_BIT(DDRB_REG,copy_u8_pin);break;
+  9c:	27 b3       	in	r18, 0x17	; 23
+  9e:	81 e0       	ldi	r24, 0x01	; 1
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	02 c0       	rjmp	.+4      	; 0xa8 <DIO_void_Set_pin_dir+0x3c>
+  a4:	88 0f       	add	r24, r24
+  a6:	99 1f       	adc	r25, r25
+  a8:	6a 95       	dec	r22
+  aa:	e2 f7       	brpl	.-8      	; 0xa4 <DIO_void_Set_pin_dir+0x38>
+  ac:	82 2b       	or	r24, r18
+  ae:	87 bb       	out	0x17, r24	; 23
+  b0:	08 95       	ret
+				case PORTC:SET_BIT(DDRC_REG,copy_u8_pin);break;			
+  b2:	24 b3       	in	r18, 0x14	; 20
+  b4:	81 e0       	ldi	r24, 0x01	; 1
+  b6:	90 e0       	ldi	r25, 0x00	; 0
+  b8:	02 c0       	rjmp	.+4      	; 0xbe <DIO_void_Set_pin_dir+0x52>
+  ba:	88 0f       	add	r24, r24
+  bc:	99 1f       	adc	r25, r25
+  be:	6a 95       	dec	r22
+  c0:	e2 f7       	brpl	.-8      	; 0xba <DIO_void_Set_pin_dir+0x4e>
+  c2:	82 2b       	or	r24, r18
+  c4:	84 bb       	out	0x14, r24	; 20
+  c6:	08 95       	ret
+				case PORTD:SET_BIT(DDRD_REG,copy_u8_pin);break;
+  c8:	21 b3       	in	r18, 0x11	; 17
+  ca:	81 e0       	ldi	r24, 0x01	; 1
+  cc:	90 e0       	ldi	r25, 0x00	; 0
+  ce:	02 c0       	rjmp	.+4      	; 0xd4 <DIO_void_Set_pin_dir+0x68>
+  d0:	88 0f       	add	r24, r24
+  d2:	99 1f       	adc	r25, r25
+  d4:	6a 95       	dec	r22
+  d6:	e2 f7       	brpl	.-8      	; 0xd0 <DIO_void_Set_pin_dir+0x64>
+  d8:	82 2b       	or	r24, r18
+  da:	81 bb       	out	0x11, r24	; 17
+  dc:	08 95       	ret
+			}
+		}
+	
+		else
+		{
+			switch(copy_u8_port)
+  de:	81 30       	cpi	r24, 0x01	; 1
+  e0:	91 f0       	breq	.+36     	; 0x106 <DIO_void_Set_pin_dir+0x9a>
+  e2:	28 f0       	brcs	.+10     	; 0xee <DIO_void_Set_pin_dir+0x82>
+  e4:	82 30       	cpi	r24, 0x02	; 2
+  e6:	d9 f0       	breq	.+54     	; 0x11e <DIO_void_Set_pin_dir+0xb2>
+  e8:	83 30       	cpi	r24, 0x03	; 3
+  ea:	29 f1       	breq	.+74     	; 0x136 <DIO_void_Set_pin_dir+0xca>
+  ec:	08 95       	ret
+			{
+				case PORTA:CLR_BIT(DDRA_REG,copy_u8_pin); break;
+  ee:	2a b3       	in	r18, 0x1a	; 26
+  f0:	81 e0       	ldi	r24, 0x01	; 1
+  f2:	90 e0       	ldi	r25, 0x00	; 0
+  f4:	02 c0       	rjmp	.+4      	; 0xfa <DIO_void_Set_pin_dir+0x8e>
+  f6:	88 0f       	add	r24, r24
+  f8:	99 1f       	adc	r25, r25
+  fa:	6a 95       	dec	r22
+  fc:	e2 f7       	brpl	.-8      	; 0xf6 <DIO_void_Set_pin_dir+0x8a>
+  fe:	80 95       	com	r24
+ 100:	82 23       	and	r24, r18
+ 102:	8a bb       	out	0x1a, r24	; 26
+ 104:	08 95       	ret
+				case PORTB:CLR_BIT(DDRB_REG,copy_u8_pin);break;
+ 106:	27 b3       	in	r18, 0x17	; 23
+ 108:	81 e0       	ldi	r24, 0x01	; 1
+ 10a:	90 e0       	ldi	r25, 0x00	; 0
+ 10c:	02 c0       	rjmp	.+4      	; 0x112 <DIO_void_Set_pin_dir+0xa6>
+ 10e:	88 0f       	add	r24, r24
+ 110:	99 1f       	adc	r25, r25
+ 112:	6a 95       	dec	r22
+ 114:	e2 f7       	brpl	.-8      	; 0x10e <DIO_void_Set_pin_dir+0xa2>
+ 116:	80 95       	com	r24
+ 118:	82 23       	and	r24, r18
+ 11a:	87 bb       	out	0x17, r24	; 23
+ 11c:	08 95       	ret
+				case PORTC:CLR_BIT(DDRC_REG,copy_u8_pin);break;
+ 11e:	24 b3       	in	r18, 0x14	; 20
+ 120:	81 e0       	ldi	r24, 0x01	; 1
+ 122:	90 e0       	ldi	r25, 0x00	; 0
+ 124:	02 c0       	rjmp	.+4      	; 0x12a <DIO_void_Set_pin_dir+0xbe>
+ 126:	88 0f       	add	r24, r24
+ 128:	99 1f       	adc	r25, r25
+ 12a:	6a 95       	dec	r22
+ 12c:	e2 f7       	brpl	.-8      	; 0x126 <DIO_void_Set_pin_dir+0xba>
+ 12e:	80 95       	com	r24
+ 130:	82 23       	and	r24, r18
+ 132:	84 bb       	out	0x14, r24	; 20
+ 134:	08 95       	ret
+				case PORTD:CLR_BIT(DDRD_REG,copy_u8_pin);break;
+ 136:	21 b3       	in	r18, 0x11	; 17
+ 138:	81 e0       	ldi	r24, 0x01	; 1
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	02 c0       	rjmp	.+4      	; 0x142 <DIO_void_Set_pin_dir+0xd6>
+ 13e:	88 0f       	add	r24, r24
+ 140:	99 1f       	adc	r25, r25
+ 142:	6a 95       	dec	r22
+ 144:	e2 f7       	brpl	.-8      	; 0x13e <DIO_void_Set_pin_dir+0xd2>
+ 146:	80 95       	com	r24
+ 148:	82 23       	and	r24, r18
+ 14a:	81 bb       	out	0x11, r24	; 17
+ 14c:	08 95       	ret
+
+0000014e <main>:
+ #include "USART_Interface.h"
+ #include "DIO_Interface.h"
+
+int main(void)
+{
+	USART_Init();
+ 14e:	0e 94 b2 00 	call	0x164	; 0x164 <USART_Init>
+	DIO_void_Set_pin_dir(PORTD,PIN1,OUTPUT);
+ 152:	41 e0       	ldi	r20, 0x01	; 1
+ 154:	61 e0       	ldi	r22, 0x01	; 1
+ 156:	83 e0       	ldi	r24, 0x03	; 3
+ 158:	0e 94 36 00 	call	0x6c	; 0x6c <DIO_void_Set_pin_dir>
+	
+    while (1) 
+    {
+		USART_TX('F');
+ 15c:	86 e4       	ldi	r24, 0x46	; 70
+ 15e:	0e 94 c1 00 	call	0x182	; 0x182 <USART_TX>
+ 162:	fc cf       	rjmp	.-8      	; 0x15c <main+0xe>
+
+00000164 <USART_Init>:
+}
+u8 USART_RX(void)
+{
+	while (GET_BIT(UCSRA_REG,RXC) == 0);
+	return UDR_REG;
+}
+ 164:	87 e6       	ldi	r24, 0x67	; 103
+ 166:	89 b9       	out	0x09, r24	; 9
+ 168:	8a b1       	in	r24, 0x0a	; 10
+ 16a:	88 60       	ori	r24, 0x08	; 8
+ 16c:	8a b9       	out	0x0a, r24	; 10
+ 16e:	8a b1       	in	r24, 0x0a	; 10
+ 170:	80 61       	ori	r24, 0x10	; 16
+ 172:	8a b9       	out	0x0a, r24	; 10
+ 174:	8a b1       	in	r24, 0x0a	; 10
+ 176:	80 68       	ori	r24, 0x80	; 128
+ 178:	8a b9       	out	0x0a, r24	; 10
+ 17a:	8a b1       	in	r24, 0x0a	; 10
+ 17c:	80 64       	ori	r24, 0x40	; 64
+ 17e:	8a b9       	out	0x0a, r24	; 10
+ 180:	08 95       	ret
+
+00000182 <USART_TX>:
+void USART_TX(u8 data)
+{
+	UDR_REG = data;
+ 182:	8c b9       	out	0x0c, r24	; 12
+	while (GET_BIT(UCSRA_REG,TXC) == 0);	
+ 184:	5e 9b       	sbis	0x0b, 6	; 11
+ 186:	fe cf       	rjmp	.-4      	; 0x184 <USART_TX+0x2>
+ 188:	08 95       	ret
+
+0000018a <_exit>:
+ 18a:	f8 94       	cli
+
+0000018c <__stop_program>:
+ 18c:	ff cf       	rjmp	.-2      	; 0x18c <__stop_program>
